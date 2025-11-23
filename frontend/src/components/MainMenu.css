@@ -1,0 +1,111 @@
+/* 1. MAIN PAGE CONTAINER */
+.menu-page {
+    min-height: 100vh;
+    width: 100%;
+    /* Deep Purple Gradient */
+    background: linear-gradient(180deg, #2E0F44 0%, #05000A 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Needed for layers */
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* 2. BACKGROUND TEXTURE LAYER */
+.menu-bg-texture {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Covers the whole screen */
+    opacity: 0.3; /* Low opacity so text is readable on top */
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 3. CONTENT LAYER */
+.menu-content {
+    position: relative;
+    z-index: 2; /* Sits on top */
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 4. LOGO */
+.menu-logo {
+    width: 280px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+}
+
+/* 5. TYPOGRAPHY */
+.welcome-title {
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.welcome-desc {
+    color: white;
+    font-size: 1.8rem;
+    line-height: 1.4;
+    font-weight: 500;
+    margin-bottom: 50px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.highlight-text {
+    font-weight: 700;
+    display: block; /* Puts it on a new line */
+    margin-top: 10px;
+}
+
+/* 6. THE BIG BUTTON */
+.start-btn-large {
+    padding: 20px 80px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+
+    /* The Purple Pill Design */
+    background: #8A2BE2;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+
+    /* Soft Glow */
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 40px;
+}
+
+.start-btn-large:hover {
+    transform: scale(1.05);
+    background: #9d4ae6;
+    box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
+}
+
+/* 7. DISCLAIMER (Subtle) */
+.disclaimer-text {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    .welcome-title { font-size: 2rem; }
+    .welcome-desc { font-size: 1.2rem; }
+    .start-btn-large { font-size: 1.5rem; padding: 15px 50px; }
+    .menu-logo { width: 200px; }
+}

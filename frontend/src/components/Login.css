@@ -1,0 +1,137 @@
+/* 1. MAIN BACKGROUND (Matches Figma Gradient) */
+.login-container {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(180deg, #1A102E 0%, #05000A 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    gap: 100px; /* Space between text and form */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 2. LEFT SECTION (Logo & Text) */
+.left-section {
+    max-width: 500px;
+}
+
+/* Controls the size of your SVG logo */
+.logo-img {
+    width: 250px; /* Adjust this if the logo is too big/small */
+    height: auto;
+    display: block;
+    margin-bottom: 30px;
+}
+
+.welcome-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #cccccc;
+    margin-bottom: 30px;
+}
+
+.tagline {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* 3. RIGHT SECTION (Glowing Box) */
+.login-box {
+    background-color: #111;
+    padding: 50px 40px;
+    border-radius: 30px;
+    width: 350px;
+
+    /* The Glowing Purple Border Effect */
+    border: 2px solid #8A2BE2;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+}
+
+.login-box h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+/* 4. INPUT FIELDS */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid #8A2BE2; /* Purple Input Borders */
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5); /* Glow on click */
+}
+
+/* 5. BUTTONS & LINKS */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #8A2BE2;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.login-btn:hover {
+    background-color: #6a1bb5;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.register-link span {
+    color: #D600FF;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* MOBILE FIX: Stack vertically on small screens */
+@media (max-width: 900px) {
+    .login-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

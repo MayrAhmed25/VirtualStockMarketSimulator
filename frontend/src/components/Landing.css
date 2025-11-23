@@ -1,0 +1,125 @@
+/* 1. MAIN BACKGROUND */
+.landing-page {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(180deg, #2E0F44 0%, #05000A 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* 2. LOGO PLACEMENT */
+.logo-header {
+    /* This pulls the box UP so the logo kisses the border */
+    margin-bottom: -50px;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.top-logo {
+    width: 300px;
+    height: auto;
+    /* Shadow helps it pop off the purple line */
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.8));
+}
+
+/* 3. THE NEON BOX */
+.neon-box {
+    position: relative;
+    width: 900px; /* Wide box */
+    max-width: 95%;
+    min-height: 600px;
+
+    /* Border & Glow */
+    border: 4px solid #9d5ce0;
+    border-radius: 30px;
+    box-shadow: 0 0 50px rgba(157, 92, 224, 0.5);
+
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 50px 20px;
+
+    /* Glass Effect */
+    background: rgba(20, 5, 30, 0.6);
+    backdrop-filter: blur(5px);
+
+    /* CRITICAL: Clips the image at the corners */
+    overflow: hidden;
+}
+
+/* 4. CHART IMAGE (Background Layer) */
+.chart-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fills the box */
+    z-index: 0; /* Sits behind text */
+    opacity: 0.9;
+}
+
+/* 5. TEXT STYLES */
+/* --- Landing.css --- */
+
+.text-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+
+    /* CHANGED: Was 60px, now 30px to move it up one more line */
+    margin-top: 30px;
+}
+
+.text-content h1 {
+    font-weight: 900;
+    font-size: 3.5rem; /* Huge Text */
+    line-height: 1.1;
+    margin: 0;
+    text-transform: uppercase;
+    /* Strong shadow ensures readability over chart lines */
+    text-shadow: 0 4px 15px rgba(0,0,0,1);
+}
+
+/* 6. THE BUTTON */
+.start-btn {
+    position: relative;
+    z-index: 2; /* Sits on top of image */
+
+    padding: 20px 90px; /* Big clickable area */
+    font-size: 1.8rem; /* Big Text */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+
+    color: white;
+    background: #B679F2;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(182, 121, 242, 0.6);
+    transition: transform 0.2s;
+    margin-bottom: 20px;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 60px rgba(182, 121, 242, 1);
+}
+
+/* RESPONSIVE FIXES */
+@media (max-width: 768px) {
+    .text-content h1 { font-size: 2rem; }
+    .logo-header { margin-bottom: -40px; }
+    .top-logo { width: 220px; }
+    .start-btn { padding: 15px 60px; font-size: 1.4rem; }
+    .neon-box { min-height: 500px; }
+}
