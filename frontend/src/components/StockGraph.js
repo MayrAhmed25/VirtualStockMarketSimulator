@@ -4,24 +4,21 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 const StockGraph = ({ stockId, stockTicker }) => {
     const [data, setData] = useState([]);
-    const [color, setColor] = useState('#3b82f6'); // Default Blue
+    const [color, setColor] = useState('#3b82f6');
 
     useEffect(() => {
         const fetchHistory = async () => {
             try {
                 const res = await api.get(`/stocks/${stockId}/history`);
 
-                // 1. FIX: Force price to be a Number using parseFloat()
                 const formattedData = res.data.map(item => ({
                     time: new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    price: parseFloat(item.price) // <--- CRITICAL FIX
+                    price: parseFloat(item.price)
                 }));
 
-                // 2. Determine Color (Red vs Green)
                 if (formattedData.length > 1) {
                     const startPrice = formattedData[0].price;
                     const endPrice = formattedData[formattedData.length - 1].price;
-                    // Green if Up, Red if Down
                     setColor(endPrice >= startPrice ? '#22c55e' : '#ef4444');
                 }
 
@@ -32,13 +29,13 @@ const StockGraph = ({ stockId, stockTicker }) => {
         };
 
         fetchHistory();
-        const interval = setInterval(fetchHistory, 3000);
+        const interval = setInterval(fetchHistory, 10000); // <--- CHANGED TO 10 SECONDS
         return () => clearInterval(interval);
-    }, [stockId]); // Reruns whenever you click a different stock
+    }, [stockId]);
 
     return (
-        <div className="card chart-container" style={{border: `1px solid ${color}`}}>
-            <div style={{ marginBottom: '15px', borderBottom:'1px solid var(--border-color)', paddingBottom:'10px', display:'flex', justifyContent:'space-between' }}>
+        <div className="card chart-container" style={{border: `1px solid ${color}`, boxShadow: `0 0 10px ${color}33`}}>
+            <div style={{ marginBottom: '15px', borderBottom:'1px solid rgba(255,255,255,0.1)', paddingBottom:'10px', display:'flex', justifyContent:'space-between' }}>
                 <h2 style={{ color: color, fontSize:'1.5rem', margin:0 }}>
                     {stockTicker}
                 </h2>
@@ -64,7 +61,7 @@ const StockGraph = ({ stockId, stockTicker }) => {
                         stroke="#94a3b8"
                         style={{fontSize:'0.8rem'}}
                         tick={{dx: -10}}
-                        tickFormatter={(number) => `$${number.toFixed(2)}`} // Format Y-Axis
+                        tickFormatter={(number) => `$${number.toFixed(2)}`}
                     />
                     <Tooltip
                         contentStyle={{backgroundColor:'#1e293b', borderColor: color, color:'#fff', borderRadius:'8px'}}

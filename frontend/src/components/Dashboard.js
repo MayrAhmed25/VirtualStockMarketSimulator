@@ -21,8 +21,7 @@ const Dashboard = () => {
 
     const navigate = useNavigate();
 
-    // --- 1. DATA FETCHING (PURE) ---
-    // This function ONLY fetches data. It does NOT touch the graph selection.
+    // --- 1. DATA FETCHING ---
     const fetchData = async () => {
         try {
             const stockRes = await api.get('/stocks');
@@ -37,10 +36,10 @@ const Dashboard = () => {
         } catch (error) { console.error("Error", error); }
     };
 
-    // --- 2. INITIALIZATION & TIMER ---
+    // --- 2. SLOW POLL (10 Seconds) ---
     useEffect(() => {
         fetchData(); // Run immediately
-        const interval = setInterval(fetchData, 3000); // Then every 3s
+        const interval = setInterval(fetchData, 10000); // <--- CHANGED TO 10 SECONDS
         return () => clearInterval(interval);
     }, []);
 
@@ -61,10 +60,7 @@ const Dashboard = () => {
         return () => clearInterval(timer);
     }, [isMarketOpen]);
 
-    // --- 4. AUTO-SELECT LOGIC (THE FIX) ---
-    // This runs independently. It only sets the graph if:
-    // a) We have stocks loaded AND
-    // b) We don't have a selection yet.
+    // --- 4. AUTO-SELECT LOGIC ---
     useEffect(() => {
         if (stocks.length > 0 && selectedStock === null) {
             setSelectedStock(stocks[0]);
@@ -72,7 +68,7 @@ const Dashboard = () => {
     }, [stocks, selectedStock]);
 
 
-    // --- HELPERS ---
+    // --- HELPERS & TRADING ---
     const formatTime = (seconds) => {
         const m = Math.floor(seconds / 60);
         const s = seconds % 60;
@@ -97,7 +93,7 @@ const Dashboard = () => {
 
         try {
             await api.post(`/trade/${type}`, { stockId, quantity: parseInt(qty) });
-            fetchData();
+            fetchData(); // Immediate refresh after trade
             setQuantities({ ...quantities, [stockId]: '' });
         } catch (error) { alert("Trade Failed!"); }
     };
@@ -107,7 +103,6 @@ const Dashboard = () => {
 
             {showSummary && <GameSummary onClose={() => {setShowSummary(false); setGameTime(1800); setIsMarketOpen(true);}} />}
 
-            {/* HEADER */}
             <div className="header-bar">
                 <div style={{display:'flex', alignItems:'center', gap:'30px'}}>
                     <img src={logo} alt="Nexus Logo" style={{ height: '50px', filter: 'drop-shadow(0 0 10px var(--electric-pink))' }} />
@@ -129,7 +124,6 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* GRAPH */}
             <div style={{ marginBottom: '30px' }}>
                 {selectedStock && (
                     <StockGraph
@@ -139,10 +133,8 @@ const Dashboard = () => {
                 )}
             </div>
 
-            {/* MAIN LAYOUT */}
             <div className="sidebar-layout">
 
-                {/* TRADING GRID */}
                 <div>
                     <h2 style={{marginBottom:'20px'}}>📉 Market</h2>
                     <div className="stock-grid">
@@ -181,7 +173,6 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* SIDEBAR */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     <MarketFeed />
                     <div className="card" style={{height: '300px', overflowY:'auto'}}>
